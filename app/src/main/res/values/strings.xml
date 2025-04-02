@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">firebase</string>
+
+    <string name="forgot_password_text">
+
+            <u>Forgot Password?</u>
+
+    </string>
+
+    <string name="signup_text">
+
+            <font color="#888888">Do not have an account? </font><font color="#2196F3"><u>Sign Up</u></font>
+
+    </string>
+
+    <string name="login_text">
+
+            <font color="#888888">Already have an account? </font><font color="#2196F3"><u>Login</u></font>
+
+    </string>
+    <string name="back_to_login">
+        <u> Back to Login</u>
+
+    </string>
+</resources>

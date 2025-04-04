@@ -32,6 +32,8 @@ class SignUpActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             auth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                                Toast.makeText(this, "Verification email sent.", Toast.LENGTH_LONG).show()
+
                                 val uid = auth.currentUser?.uid
                                 val user = hashMapOf(
                                     "uid" to uid,
@@ -43,22 +45,17 @@ class SignUpActivity : AppCompatActivity() {
                                 db.collection("users").document(uid!!)
                                     .set(user)
                                     .addOnSuccessListener {
-                                        Toast.makeText(
-                                            this,
-                                            "Verification email sent and user data saved.",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                        val intent = Intent(this, Category::class.java)
-                                        intent.putExtra("USER_NAME", username)
+                                        Toast.makeText(this, "User data saved.", Toast.LENGTH_LONG).show()
+                                        auth.signOut()
+
+
+                                        val intent = Intent(this, LoginActivity::class.java)
+                                        intent.putExtra("USER_EMAIL", email)
                                         startActivity(intent)
                                         finish()
                                     }
                                     .addOnFailureListener { e ->
-                                        Toast.makeText(
-                                            this,
-                                            "Failed to save user data: ${e.message}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        Toast.makeText(this, "Failed to save user data: ${e.message}", Toast.LENGTH_SHORT).show()
                                     }
 
                             }?.addOnFailureListener {
@@ -70,6 +67,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
             }
         }
+
 
         binding.tvLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
